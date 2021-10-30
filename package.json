@@ -1,0 +1,25 @@
+{
+  "name": "bgn_cloud9_bk",
+  "version": "1.0.0",
+  "description": "Back-end for the Cloud9 web application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PerlMonker303/BGN_Cloud9_BK.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PerlMonker303/BGN_Cloud9_BK/issues"
+  },
+  "homepage": "https://github.com/PerlMonker303/BGN_Cloud9_BK#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.16.3",
+    "mysql": "^2.15.0"
+  }
+}
