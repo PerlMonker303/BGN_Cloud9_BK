@@ -17,18 +17,18 @@ const mysql = require('mysql');
 // Database Connection for Development
 
 let connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASS
+  host: '34.142.78.106',
+  user: 'cloud9',
+  database: 'Cloud9',
+  password: 'abc123'
 });
 
-  connection.connect(function(err) {
-    if (err) {
-      console.error('Error connecting: ' + err.stack);
-      return;
-    }
-    console.log('Connected as thread id: ' + connection.threadId);
-  });
+connection.connect(function (err) {
+  if (err) {
+    console.error('Error connecting: ' + err.stack);
+    return;
+  }
+  console.log('Connected as thread id: ' + connection.threadId);
+});
 
-  module.exports = connection;
+module.exports = connection;
