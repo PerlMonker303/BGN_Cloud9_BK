@@ -7,7 +7,7 @@ app.use(cors());
 const bodyParser = require('body-parser');
 const connection = require('./database');
 
-// route for fetching short description of the keyword searched
+// route for fetching short description of the keyword searched for
 app.route('/paragraphs/:keyword')
   .get(function (req, res, next) {
     connection.query(
