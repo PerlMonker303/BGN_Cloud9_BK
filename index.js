@@ -57,7 +57,7 @@ app.route('/articles/:keyword')
       return {
         title: article.title,
         description: article.summary,
-        link: pdfLink.href
+        link: pdfLink.href + ".pdf"
       }
     })
     articles = articles.filter(article => article !== undefined)
