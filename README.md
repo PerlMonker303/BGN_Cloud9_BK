@@ -5,7 +5,8 @@ API application that serves all the request from the customer UI application.
 Make sure you have [Node.js](http://nodejs.org/) installed.
 
 ```sh
-git clone git@github.com:PerlMonker303/BGN_Cloud9_BK.git
+For Linux: git clone git@github.com:PerlMonker303/BGN_Cloud9_BK.git
+For windows users: git clone https://github.com/PerlMonker303/BGN_Cloud9_BK.git
 cd BGN_Cloud9_BK
 npm install
 npm start
