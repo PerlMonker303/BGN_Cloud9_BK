@@ -1,9 +1,0 @@
-# app.yaml
-runtime: nodejs12
-handlers:
-  - url: /(.*\..+)$
-    static_files: dist/\1
-    upload: dist/(.*\..+)$
-  - url: /.*
-    static_files: dist/index.js
-    upload: dist/index.js

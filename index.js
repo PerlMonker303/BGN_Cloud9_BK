@@ -6,6 +6,7 @@ const app = express();
 app.use(cors());
 const bodyParser = require('body-parser');
 const connection = require('./database');
+const arxiv = require('arxiv-api');
 
 // route for fetching short description of the keyword searched for
 app.route('/paragraphs/:keyword')
@@ -31,16 +32,36 @@ app.route('/videos/:keyword')
     );
   });
 
+const getPdfLink = (articleLinks) => {
+  return articleLinks.find(lnk => lnk.type == "application/pdf")
+}
+
 // route for fetching articles that contain keyword
 app.route('/articles/:keyword')
-  .get(function (req, res, next) {
-    connection.query(
-      "SELECT * FROM `articles` WHERE title LIKE '%" + req.params.keyword + "%';",
-      function (error, results, fields) {
-        if (error) throw error;
-        res.json(results);
+  .get(async (req, res, next) => {
+    let articles = await arxiv.search({
+      searchQueryParams: [
+        {
+          include: [{ name: req.params.keyword }],
+        },
+      ],
+      start: 0,
+      maxResults: 10,
+    });
+
+    articles = articles.map(article => {
+      const pdfLink = getPdfLink(article.links);
+      if (!pdfLink) {
+        return undefined;
       }
-    );
+      return {
+        title: article.title,
+        description: article.summary,
+        link: pdfLink
+      }
+    })
+    articles = articles.filter(article => article !== undefined)
+    res.json(articles);
   });
 
 // route for fetching images with the keyword searched
