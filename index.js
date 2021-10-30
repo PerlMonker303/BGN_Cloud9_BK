@@ -58,5 +58,6 @@ app.route('/images/:keyword')
 app.get('/status', (req, res) => res.send('Working!'));
 
 // Port 8080 for Google App Engine
-app.set('port', process.env.PORT || 5000);
-app.listen(5000);
+const port = process.env.PORT || 5000
+app.set('port', port);
+app.listen(port);
