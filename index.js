@@ -46,7 +46,7 @@ app.route('/articles/:keyword')
         },
       ],
       start: 0,
-      maxResults: 10,
+      maxResults: 50,
     });
 
     articles = articles.map(article => {
