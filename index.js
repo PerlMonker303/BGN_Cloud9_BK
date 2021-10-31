@@ -37,9 +37,8 @@ app.route('/videos/:keyword')
     const search = new SerpApi.GoogleSearch(apiKey)
     const params = {
       engine: "youtube",
-      search_query: req.params.keyword
+      search_query: req.params.keyword+' khanacademy'
     };
-    
     const callback = function(data) {
       let video_res = data['video_results']
       video_res = video_res.map(video_res => {
