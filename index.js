@@ -24,13 +24,34 @@ app.route('/paragraphs/:keyword')
 // route for fetching youtube playlist link that is of the topic keyword  
 app.route('/videos/:keyword')
   .get(function (req, res, next) {
-    connection.query(
-      "SELECT * FROM `videos` WHERE keyword = ? LIMIT 1", req.params.keyword,
-      function (error, results, fields) {
-        if (error) throw error;
-        res.json(results);
-      }
-    );
+    // connection.query(
+    //   "SELECT * FROM `videos` WHERE keyword = ? LIMIT 1", req.params.keyword,
+    //   function (error, results, fields) {
+    //     if (error) throw error;
+    //     res.json(results);
+    //   }
+    // );
+
+    // --------- API ----------
+    const apiKey = '5b5c52fda8d7d5897c27ad1b5553e6a16c482bfce824dd2dbe19f685d23762d4';
+    const search = new SerpApi.GoogleSearch(apiKey)
+    const params = {
+      engine: "youtube",
+      search_query: req.params.keyword
+    };
+    
+    const callback = function(data) {
+      let video_res = data['video_results']
+      video_res = video_res.map(video_res => {
+        return {
+          title: video_res.title,
+          id: video_res.link.split('v=')[1],
+          thumbnail: video_res.thumbnail
+        }
+      })
+      res.json(video_res.splice(0, 6))
+    };
+    search.json(params, callback)
   });
 
 const getPdfLink = (articleLinks) => {
