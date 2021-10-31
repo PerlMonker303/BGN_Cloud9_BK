@@ -7,6 +7,7 @@ app.use(cors());
 const bodyParser = require('body-parser');
 const connection = require('./database');
 const arxiv = require('arxiv-api');
+const SerpApi = require('google-search-results-nodejs')
 
 // route for fetching short description of the keyword searched for
 app.route('/paragraphs/:keyword')
@@ -67,13 +68,35 @@ app.route('/articles/:keyword')
 // route for fetching images with the keyword searched
 app.route('/images/:keyword')
   .get(function (req, res, next) {
-    connection.query(
-      "SELECT * FROM `Images` WHERE keyword = ?", req.params.keyword,
-      function (error, results, fields) {
-        if (error) throw error;
-        res.json(results);
-      }
-    );
+    // connection.query(
+    //   "SELECT * FROM `Images` WHERE keyword = ?", req.params.keyword,
+    //   function (error, results, fields) {
+    //     if (error) throw error;
+    //     const parsedResults = results.map(res => {
+    //       return {
+    //         link: res.link,
+    //         thumbnail: res.link
+    //       }
+    //     })
+    //     res.json(parsedResults);
+    //   }
+    // );
+    const apiKey = 'b430cc42ff0212b08e4879dd70f19f315431fce8b031b5cba85bd9ac4b700980';
+    const search = new SerpApi.GoogleSearch(apiKey)
+    search.json({
+      q: req.params.keyword,
+      tbm: 'isch',
+      safe: true,
+    }, (result) => {
+      let images = result.images_results;
+      images = images.map(image => {
+        return {
+          link: image.original,
+          thumbnail: image.thumbnail
+        }
+      })
+      res.json(images.splice(0, 10))
+    })
   });
 
 app.get('/status', (req, res) => res.send('Working!'));
