@@ -28,7 +28,14 @@ app.route('/videos/:keyword')
       "SELECT * FROM `videos` WHERE keyword = ? LIMIT 1", req.params.keyword,
       function (error, results, fields) {
         if (error) throw error;
-        res.json(results);
+        const parsedResults = results.map(res => {
+          return {
+            title: video_res.title,
+            id: video_res.link.split('v=')[1],
+            thumbnail: video_res.thumbnail
+          }
+        })
+        res.json(parsedResults);
       }
     );
 
