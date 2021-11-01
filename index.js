@@ -11,7 +11,7 @@ const SerpApi = require('google-search-results-nodejs')
 // route for fetching youtube playlist link that is of the topic keyword  
 app.route('/videos/:keyword')
   .get(function (req, res, next) {
-    const apiKey = '5b5c52fda8d7d5897c27ad1b5553e6a16c482bfce824dd2dbe19f685d23762d4';
+    const apiKey = '9ffa4a58c902e8ca500a8e88020e029de4d703f7a3a45760c4071c01e2ee64e6';
     const search = new SerpApi.GoogleSearch(apiKey)
     const params = {
       engine: "youtube",
@@ -66,7 +66,7 @@ app.route('/articles/:keyword')
 // route for fetching images with the keyword searched
 app.route('/images/:keyword')
   .get(function (req, res, next) {
-    const apiKey = 'b430cc42ff0212b08e4879dd70f19f315431fce8b031b5cba85bd9ac4b700980';
+    const apiKey = 'fd82d9f422cd157f5c18d74f4528d34f116ff85094d8b29f95f0160b612f034e';
     const search = new SerpApi.GoogleSearch(apiKey)
     search.json({
       q: req.params.keyword,
